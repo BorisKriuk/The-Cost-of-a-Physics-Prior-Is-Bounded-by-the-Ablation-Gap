@@ -1,0 +1,2044 @@
+{
+  "config": {
+    "csv": "data/FiresRu.csv",
+    "order": "Controlled burn,Uncontrolled burn,Wildfire",
+    "merge": "Forest fire+Natural fire+Peat fire=Wildfire",
+    "map": [],
+    "folds": 5,
+    "block_deg": 1.0,
+    "time_block_days": 7,
+    "min_class": 30,
+    "dedup": "none",
+    "solar_as_driver": false,
+    "protocols": "spatial",
+    "seed": 5,
+    "tag": "b1",
+    "boot": 0,
+    "boot_sign": 0,
+    "vr_eps": [
+      0.001,
+      0.01,
+      0.05
+    ],
+    "max_r2": 0.9,
+    "min_rel": 0.1,
+    "force_gate": "auto",
+    "screen_scope": "fold",
+    "spatial_cv": "stratgroup",
+    "cluster_boot": "always",
+    "out": "results_rep/b1/seed5"
+  },
+  "classes": [
+    "Controlled burn",
+    "Uncontrolled burn",
+    "Wildfire"
+  ],
+  "drivers": [
+    "temp",
+    "rh",
+    "wind",
+    "precip"
+  ],
+  "ctx_candidates": [
+    "solar"
+  ],
+  "N": 26681,
+  "n_blocks": 1080,
+  "n_coord_blocks": 26680,
+  "has_time": false,
+  "ctx_keep": [
+    "solar"
+  ],
+  "refs": [
+    "MC",
+    "WX_ONLY",
+    "GEO_ONLY",
+    "MONO_sc",
+    "MC_c"
+  ],
+  "table_refs": [
+    "MC",
+    "WX_ONLY",
+    "GEO_ONLY"
+  ],
+  "class_counts": [
+    333,
+    2711,
+    23637
+  ],
+  "screen": [
+    {
+      "feature": "solar",
+      "r2_on_drivers": 0.2645863609609077,
+      "resid_rel_std": 0.8575626152294026,
+      "exogenous": true
+    }
+  ],
+  "protocols": {
+    "spatial": {
+      "f1": {
+        "MAJORITY": 0.3131682499304424,
+        "GEO_ONLY": 0.5545268074167965,
+        "WX_ONLY": 0.5853534981036806,
+        "MC": 0.6615617881350787,
+        "MONO_naive": 0.6168540700602625,
+        "MONO_sc": 0.6167023084661142,
+        "PHYS": 0.38246765669357247,
+        "PHYS_sc": 0.39702851126414807,
+        "MIB": 0.63684811154676,
+        "MIB_fp": 0.6358599679045615,
+        "MIB_fm": 0.6129479538508128,
+        "MC_c": 0.6779634613746177
+      },
+      "per_class_f1": {
+        "MAJORITY": [
+          0.0,
+          0.0,
+          0.9395047497913271
+        ],
+        "GEO_ONLY": [
+          0.061224489795918366,
+          0.6422764227642277,
+          0.9600795096902435
+        ],
+        "WX_ONLY": [
+          0.27522935779816515,
+          0.5279418446160836,
+          0.9528892918967934
+        ],
+        "MC": [
+          0.30275229357798167,
+          0.7143452877397831,
+          0.9675877830874714
+        ],
+        "MONO_naive": [
+          0.2081447963800905,
+          0.6789528795811518,
+          0.9634645342195451
+        ],
+        "MONO_sc": [
+          0.20869565217391303,
+          0.6784452296819788,
+          0.9629660435424507
+        ],
+        "PHYS": [
+          0.0,
+          0.2062407132243685,
+          0.9411622568563489
+        ],
+        "PHYS_sc": [
+          0.0,
+          0.2489367734618656,
+          0.9421487603305785
+        ],
+        "MIB": [
+          0.21768707482993196,
+          0.7242902208201892,
+          0.9685670389901591
+        ],
+        "MIB_fp": [
+          0.22462203023758098,
+          0.7152950955943475,
+          0.967662777881756
+        ],
+        "MIB_fm": [
+          0.1915367483296214,
+          0.6837606837606838,
+          0.9635464294621332
+        ],
+        "MC_c": [
+          0.32407407407407407,
+          0.7394715111478117,
+          0.9703447989019673
+        ]
+      },
+      "cost": {
+        "MC": {
+          "MAJORITY": {
+            "delta": -0.3483935382046363,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "GEO_ONLY": {
+            "delta": -0.10703498071828221,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "WX_ONLY": {
+            "delta": -0.07620829003139806,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_naive": {
+            "delta": -0.044707718074816216,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_sc": {
+            "delta": -0.04485947966896453,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS": {
+            "delta": -0.27909413144150624,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS_sc": {
+            "delta": -0.26453327687093064,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB": {
+            "delta": -0.02471367658831869,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fp": {
+            "delta": -0.02570182023051726,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fm": {
+            "delta": -0.04861383428426591,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC_c": {
+            "delta": 0.016401673239539005,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          }
+        },
+        "WX_ONLY": {
+          "MAJORITY": {
+            "delta": -0.27218524817323825,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "GEO_ONLY": {
+            "delta": -0.03082669068688415,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC": {
+            "delta": 0.07620829003139806,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_naive": {
+            "delta": 0.031500571956581847,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_sc": {
+            "delta": 0.03134881036243353,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS": {
+            "delta": -0.20288584141010818,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS_sc": {
+            "delta": -0.18832498683953258,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB": {
+            "delta": 0.05149461344307937,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fp": {
+            "delta": 0.050506469800880804,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fm": {
+            "delta": 0.02759445574713215,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC_c": {
+            "delta": 0.09260996327093707,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          }
+        },
+        "GEO_ONLY": {
+          "MAJORITY": {
+            "delta": -0.2413585574863541,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "WX_ONLY": {
+            "delta": 0.03082669068688415,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC": {
+            "delta": 0.10703498071828221,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_naive": {
+            "delta": 0.062327262643466,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_sc": {
+            "delta": 0.06217550104931768,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS": {
+            "delta": -0.17205915072322403,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS_sc": {
+            "delta": -0.15749829615264843,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB": {
+            "delta": 0.08232130412996352,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fp": {
+            "delta": 0.08133316048776495,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fm": {
+            "delta": 0.0584211464340163,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC_c": {
+            "delta": 0.12343665395782122,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          }
+        },
+        "MONO_sc": {
+          "MAJORITY": {
+            "delta": -0.3035340585356718,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "GEO_ONLY": {
+            "delta": -0.06217550104931768,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "WX_ONLY": {
+            "delta": -0.03134881036243353,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC": {
+            "delta": 0.04485947966896453,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_naive": {
+            "delta": 0.00015176159414831414,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS": {
+            "delta": -0.2342346517725417,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS_sc": {
+            "delta": -0.21967379720196611,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB": {
+            "delta": 0.02014580308064584,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fp": {
+            "delta": 0.019157659438447272,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fm": {
+            "delta": -0.0037543546153013807,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC_c": {
+            "delta": 0.061261152908503536,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          }
+        },
+        "MC_c": {
+          "MAJORITY": {
+            "delta": -0.3647952114441753,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "GEO_ONLY": {
+            "delta": -0.12343665395782122,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "WX_ONLY": {
+            "delta": -0.09260996327093707,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MC": {
+            "delta": -0.016401673239539005,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_naive": {
+            "delta": -0.06110939131435522,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MONO_sc": {
+            "delta": -0.061261152908503536,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS": {
+            "delta": -0.29549580468104525,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "PHYS_sc": {
+            "delta": -0.28093495011046965,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB": {
+            "delta": -0.041115349827857695,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fp": {
+            "delta": -0.042103493470056264,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          },
+          "MIB_fm": {
+            "delta": -0.06501550752380492,
+            "ci_lo": NaN,
+            "ci_hi": NaN,
+            "p": NaN,
+            "n_boot": 0,
+            "identical": false
+          }
+        }
+      },
+      "vr": {
+        "MAJORITY": {
+          "own": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "naive": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "screened": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          }
+        },
+        "GEO_ONLY": {
+          "own": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "naive": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "screened": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          }
+        },
+        "WX_ONLY": {
+          "own": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "naive": {
+            "overall": 0.4976031569468722,
+            "per_driver": {
+              "temp": 0.48233172491104936,
+              "rh": 0.5054913013898338,
+              "wind": 0.5181925875782705,
+              "precip": 0.48478495267760874
+            },
+            "n_active": 75516
+          },
+          "screened": {
+            "overall": 0.4941336935219026,
+            "per_driver": {
+              "temp": 0.48233172491104936,
+              "rh": 0.5054913013898338,
+              "wind": 0.4930332261521972,
+              "precip": 0.4958068767221756
+            },
+            "n_active": 75516
+          }
+        },
+        "MC": {
+          "own": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "naive": {
+            "overall": 0.47500751045686684,
+            "per_driver": {
+              "temp": 0.43390357698289267,
+              "rh": 0.49726597567942543,
+              "wind": 0.5534551564797312,
+              "precip": 0.42019347037484883
+            },
+            "n_active": 43273
+          },
+          "screened": {
+            "overall": 0.4821944399510087,
+            "per_driver": {
+              "temp": 0.43390357698289267,
+              "rh": 0.49726597567942543,
+              "wind": 0.5283553875236295,
+              "precip": 0.475614671503426
+            },
+            "n_active": 43273
+          }
+        },
+        "MONO_naive": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 14855
+          },
+          "naive": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 14855
+          },
+          "screened": {
+            "overall": 0.2009424436216762,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.18846649484536082,
+              "precip": 0.6271230729030572
+            },
+            "n_active": 14855
+          }
+        },
+        "MONO_sc": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 17295
+          },
+          "naive": {
+            "overall": 0.25365712633709164,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.24829094886519004,
+              "precip": 0.7091316754993885
+            },
+            "n_active": 17295
+          },
+          "screened": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 17295
+          }
+        },
+        "PHYS": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 14066
+          },
+          "naive": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 14066
+          },
+          "screened": {
+            "overall": 0.12107208872458411,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.1261605679956308,
+              "precip": 0.6077375122428991
+            },
+            "n_active": 14066
+          }
+        },
+        "PHYS_sc": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 22495
+          },
+          "naive": {
+            "overall": 0.39097577239386533,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.31854357341822526,
+              "precip": 0.899812382739212
+            },
+            "n_active": 22495
+          },
+          "screened": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 22495
+          }
+        },
+        "MIB": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 16042
+          },
+          "naive": {
+            "overall": 0.290175788555043,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.30999383096853794,
+              "precip": 0.7417191627717944
+            },
+            "n_active": 16042
+          },
+          "screened": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 16042
+          }
+        },
+        "MIB_fp": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 16502
+          },
+          "naive": {
+            "overall": 0.29057083989819416,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.2883949191685912,
+              "precip": 0.7702922077922078
+            },
+            "n_active": 16502
+          },
+          "screened": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 16502
+          }
+        },
+        "MIB_fm": {
+          "own": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 17257
+          },
+          "naive": {
+            "overall": 0.248420930636843,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.22617124394184168,
+              "precip": 0.6877494014365523
+            },
+            "n_active": 17257
+          },
+          "screened": {
+            "overall": 0.0,
+            "per_driver": {
+              "temp": 0.0,
+              "rh": 0.0,
+              "wind": 0.0,
+              "precip": 0.0
+            },
+            "n_active": 17257
+          }
+        },
+        "MC_c": {
+          "own": {
+            "overall": NaN,
+            "per_driver": {
+              "temp": NaN,
+              "rh": NaN,
+              "wind": NaN,
+              "precip": NaN
+            },
+            "n_active": 0
+          },
+          "naive": {
+            "overall": 0.5002251476703838,
+            "per_driver": {
+              "temp": 0.4473787938510051,
+              "rh": 0.5182163187855787,
+              "wind": 0.5597068716962998,
+              "precip": 0.48323990390115545
+            },
+            "n_active": 37753
+          },
+          "screened": {
+            "overall": 0.4882261012369878,
+            "per_driver": {
+              "temp": 0.4473787938510051,
+              "rh": 0.5182163187855787,
+              "wind": 0.5078087457952907,
+              "precip": 0.4808374327880105
+            },
+            "n_active": 37753
+          }
+        }
+      },
+      "n_boot": 0,
+      "vr_partial": {
+        "naive": {
+          "overall": 0.47500751045686684,
+          "per_driver": {
+            "temp": 0.43390357698289267,
+            "rh": 0.49726597567942543,
+            "wind": 0.5534551564797312,
+            "precip": 0.42019347037484883
+          },
+          "n_active": 43273
+        },
+        "screened": {
+          "overall": 0.4821944399510087,
+          "per_driver": {
+            "temp": 0.43390357698289267,
+            "rh": 0.49726597567942543,
+            "wind": 0.5283553875236295,
+            "precip": 0.475614671503426
+          },
+          "n_active": 43273
+        }
+      },
+      "fold_signs": [
+        {
+          "temp": 1,
+          "rh": -1,
+          "wind": 1,
+          "precip": 1
+        },
+        {
+          "temp": 1,
+          "rh": -1,
+          "wind": 1,
+          "precip": -1
+        },
+        {
+          "temp": 1,
+          "rh": -1,
+          "wind": -1,
+          "precip": 1
+        },
+        {
+          "temp": 1,
+          "rh": -1,
+          "wind": 1,
+          "precip": 1
+        },
+        {
+          "temp": 1,
+          "rh": -1,
+          "wind": 1,
+          "precip": -1
+        }
+      ],
+      "fold_ctx": [
+        {
+          "fold": 1,
+          "ctx_keep": [
+            "solar"
+          ],
+          "screen": [
+            {
+              "feature": "solar",
+              "r2_on_drivers": 0.25642108738157254,
+              "resid_rel_std": 0.8623102183196181,
+              "exogenous": true
+            }
+          ],
+          "test_support": [
+            59,
+            543,
+            4728
+          ],
+          "train_support": [
+            274,
+            2168,
+            18909
+          ]
+        },
+        {
+          "fold": 2,
+          "ctx_keep": [
+            "solar"
+          ],
+          "screen": [
+            {
+              "feature": "solar",
+              "r2_on_drivers": 0.28343318868504386,
+              "resid_rel_std": 0.8465026942160054,
+              "exogenous": true
+            }
+          ],
+          "test_support": [
+            59,
+            543,
+            4728
+          ],
+          "train_support": [
+            274,
+            2168,
+            18909
+          ]
+        },
+        {
+          "fold": 3,
+          "ctx_keep": [
+            "solar"
+          ],
+          "screen": [
+            {
+              "feature": "solar",
+              "r2_on_drivers": 0.26267868126256055,
+              "resid_rel_std": 0.8586741633107633,
+              "exogenous": true
+            }
+          ],
+          "test_support": [
+            99,
+            541,
+            4726
+          ],
+          "train_support": [
+            234,
+            2170,
+            18911
+          ]
+        },
+        {
+          "fold": 4,
+          "ctx_keep": [
+            "solar"
+          ],
+          "screen": [
+            {
+              "feature": "solar",
+              "r2_on_drivers": 0.2594931127495066,
+              "resid_rel_std": 0.8605270984986432,
+              "exogenous": true
+            }
+          ],
+          "test_support": [
+            58,
+            542,
+            4728
+          ],
+          "train_support": [
+            275,
+            2169,
+            18909
+          ]
+        },
+        {
+          "fold": 5,
+          "ctx_keep": [
+            "solar"
+          ],
+          "screen": [
+            {
+              "feature": "solar",
+              "r2_on_drivers": 0.2652134318067063,
+              "resid_rel_std": 0.8571969249789068,
+              "exogenous": true
+            }
+          ],
+          "test_support": [
+            58,
+            542,
+            4727
+          ],
+          "train_support": [
+            275,
+            2169,
+            18910
+          ]
+        }
+      ],
+      "alias_hits": {
+        "MONO_sc->MONO_naive": 2,
+        "PHYS_sc->PHYS": 2
+      },
+      "fold_f1": [
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MAJORITY",
+          "n_test": 5330,
+          "f1": 0.31338238218333664
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "GEO_ONLY",
+          "n_test": 5330,
+          "f1": 0.5947654947801738
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "WX_ONLY",
+          "n_test": 5330,
+          "f1": 0.6163740592388885
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MC",
+          "n_test": 5330,
+          "f1": 0.6756873764761364
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MONO_naive",
+          "n_test": 5330,
+          "f1": 0.616003684063433
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MONO_sc",
+          "n_test": 5330,
+          "f1": 0.629208242575967
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "PHYS",
+          "n_test": 5330,
+          "f1": 0.38993427264589386
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "PHYS_sc",
+          "n_test": 5330,
+          "f1": 0.4105905086754067
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MIB",
+          "n_test": 5330,
+          "f1": 0.6744730174168782
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MIB_fp",
+          "n_test": 5330,
+          "f1": 0.6490828979283153
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MIB_fm",
+          "n_test": 5330,
+          "f1": 0.6510222274331506
+        },
+        {
+          "protocol": "spatial",
+          "fold": 1,
+          "model": "MC_c",
+          "n_test": 5330,
+          "f1": 0.7032362822471742
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MAJORITY",
+          "n_test": 5330,
+          "f1": 0.31338238218333664
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "GEO_ONLY",
+          "n_test": 5330,
+          "f1": 0.5180381215639339
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "WX_ONLY",
+          "n_test": 5330,
+          "f1": 0.557232893805095
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MC",
+          "n_test": 5330,
+          "f1": 0.6353191932534279
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MONO_naive",
+          "n_test": 5330,
+          "f1": 0.6378967596972563
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MONO_sc",
+          "n_test": 5330,
+          "f1": 0.6378967596972563
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "PHYS",
+          "n_test": 5330,
+          "f1": 0.36243658623888214
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "PHYS_sc",
+          "n_test": 5330,
+          "f1": 0.36243658623888214
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MIB",
+          "n_test": 5330,
+          "f1": 0.6519145770725425
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MIB_fp",
+          "n_test": 5330,
+          "f1": 0.6668569828471994
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MIB_fm",
+          "n_test": 5330,
+          "f1": 0.6373821080932855
+        },
+        {
+          "protocol": "spatial",
+          "fold": 2,
+          "model": "MC_c",
+          "n_test": 5330,
+          "f1": 0.6671065144277176
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MAJORITY",
+          "n_test": 5366,
+          "f1": 0.3121944774739067
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "GEO_ONLY",
+          "n_test": 5366,
+          "f1": 0.5382568925271964
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "WX_ONLY",
+          "n_test": 5366,
+          "f1": 0.5511475540364711
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MC",
+          "n_test": 5366,
+          "f1": 0.6166915383002101
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MONO_naive",
+          "n_test": 5366,
+          "f1": 0.5470405908579686
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MONO_sc",
+          "n_test": 5366,
+          "f1": 0.5462589602223291
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "PHYS",
+          "n_test": 5366,
+          "f1": 0.3686132050235884
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "PHYS_sc",
+          "n_test": 5366,
+          "f1": 0.4081214934537127
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MIB",
+          "n_test": 5366,
+          "f1": 0.5536406814287143
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MIB_fp",
+          "n_test": 5366,
+          "f1": 0.547114685108207
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MIB_fm",
+          "n_test": 5366,
+          "f1": 0.5508631900229792
+        },
+        {
+          "protocol": "spatial",
+          "fold": 3,
+          "model": "MC_c",
+          "n_test": 5366,
+          "f1": 0.6165444403428899
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MAJORITY",
+          "n_test": 5328,
+          "f1": 0.3134447096260939
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "GEO_ONLY",
+          "n_test": 5328,
+          "f1": 0.5494334786988464
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "WX_ONLY",
+          "n_test": 5328,
+          "f1": 0.6144758901984336
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MC",
+          "n_test": 5328,
+          "f1": 0.7242938601003374
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MONO_naive",
+          "n_test": 5328,
+          "f1": 0.673906623402046
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MONO_sc",
+          "n_test": 5328,
+          "f1": 0.6607383380867515
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "PHYS",
+          "n_test": 5328,
+          "f1": 0.37868047400448385
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "PHYS_sc",
+          "n_test": 5328,
+          "f1": 0.3923119091802499
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MIB",
+          "n_test": 5328,
+          "f1": 0.6934917486758513
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MIB_fp",
+          "n_test": 5328,
+          "f1": 0.6853360049463083
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MIB_fm",
+          "n_test": 5328,
+          "f1": 0.6316968259316712
+        },
+        {
+          "protocol": "spatial",
+          "fold": 4,
+          "model": "MC_c",
+          "n_test": 5328,
+          "f1": 0.7353716930001629
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MAJORITY",
+          "n_test": 5327,
+          "f1": 0.3134407532656986
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "GEO_ONLY",
+          "n_test": 5327,
+          "f1": 0.5719104084321476
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "WX_ONLY",
+          "n_test": 5327,
+          "f1": 0.5989606333639549
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MC",
+          "n_test": 5327,
+          "f1": 0.6743004375325495
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MONO_naive",
+          "n_test": 5327,
+          "f1": 0.600565808270439
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MONO_sc",
+          "n_test": 5327,
+          "f1": 0.600565808270439
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "PHYS",
+          "n_test": 5327,
+          "f1": 0.4101532233584884
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "PHYS_sc",
+          "n_test": 5327,
+          "f1": 0.4101532233584884
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MIB",
+          "n_test": 5327,
+          "f1": 0.6148490736456845
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MIB_fp",
+          "n_test": 5327,
+          "f1": 0.6375393103359343
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MIB_fm",
+          "n_test": 5327,
+          "f1": 0.588752599107789
+        },
+        {
+          "protocol": "spatial",
+          "fold": 5,
+          "model": "MC_c",
+          "n_test": 5327,
+          "f1": 0.6762849104795827
+        }
+      ],
+      "metrics": {
+        "MAJORITY": {
+          "macro_f1": 0.3131682499304424,
+          "qwk": 0.0,
+          "neg_mae": -0.12656946891046061,
+          "bal_acc": 0.3333333333333333,
+          "neg_rps": -0.0567031924750797,
+          "neg_logloss": -0.3945847980005777,
+          "neg_brier": -0.20469019890329412,
+          "cum_auc": 0.4723521305896361
+        },
+        "GEO_ONLY": {
+          "macro_f1": 0.5545268074167965,
+          "qwk": 0.4890833444642837,
+          "neg_mae": -0.08605374611146509,
+          "bal_acc": 0.5235137999281524,
+          "neg_rps": -0.03520155868748581,
+          "neg_logloss": -0.2599930787190231,
+          "neg_brier": -0.12024443041331018,
+          "cum_auc": 0.8759103268417854
+        },
+        "WX_ONLY": {
+          "macro_f1": 0.5853534981036806,
+          "qwk": 0.44826811417953394,
+          "neg_mae": -0.09752258161238335,
+          "bal_acc": 0.5289631698393341,
+          "neg_rps": -0.03893632541502791,
+          "neg_logloss": -0.2904871530409643,
+          "neg_brier": -0.13872099051415832,
+          "cum_auc": 0.8002339655139713
+        },
+        "MC": {
+          "macro_f1": 0.6615617881350787,
+          "qwk": 0.6043663122662697,
+          "neg_mae": -0.06986244893369814,
+          "bal_acc": 0.6050588166849665,
+          "neg_rps": -0.029229685028996755,
+          "neg_logloss": -0.2165934662490285,
+          "neg_brier": -0.10042183875554696,
+          "cum_auc": 0.8953035164223507
+        },
+        "MONO_naive": {
+          "macro_f1": 0.6168540700602625,
+          "qwk": 0.5498996912908807,
+          "neg_mae": -0.07904501330534837,
+          "bal_acc": 0.5724294566836426,
+          "neg_rps": -0.03262098463337599,
+          "neg_logloss": -0.24279706506381624,
+          "neg_brier": -0.11198359653112303,
+          "cum_auc": 0.893098488319281
+        },
+        "MONO_sc": {
+          "macro_f1": 0.6167023084661142,
+          "qwk": 0.5469942620353392,
+          "neg_mae": -0.08039428807016229,
+          "bal_acc": 0.57524809012468,
+          "neg_rps": -0.032272535401190655,
+          "neg_logloss": -0.240670223759196,
+          "neg_brier": -0.11042270315134683,
+          "cum_auc": 0.887689422965612
+        },
+        "PHYS": {
+          "macro_f1": 0.38246765669357247,
+          "qwk": 0.15323225813255392,
+          "neg_mae": -0.12207188636108092,
+          "bal_acc": 0.37223373311075497,
+          "neg_rps": -0.05120180718333985,
+          "neg_logloss": -0.3609896916180318,
+          "neg_brier": -0.18548827272075097,
+          "cum_auc": 0.6534974189710019
+        },
+        "PHYS_sc": {
+          "macro_f1": 0.39702851126414807,
+          "qwk": 0.19771930297507267,
+          "neg_mae": -0.12027285334132903,
+          "bal_acc": 0.382741847612232,
+          "neg_rps": -0.04991312115405967,
+          "neg_logloss": -0.35478531634413213,
+          "neg_brier": -0.17996216354159836,
+          "cum_auc": 0.6461515219488791
+        },
+        "MIB": {
+          "macro_f1": 0.63684811154676,
+          "qwk": 0.5952517158018604,
+          "neg_mae": -0.06967504966080731,
+          "bal_acc": 0.5887255909581316,
+          "neg_rps": -0.0292203646629258,
+          "neg_logloss": -0.22050625676652563,
+          "neg_brier": -0.09915802624891948,
+          "cum_auc": 0.8827125197629607
+        },
+        "MIB_fp": {
+          "macro_f1": 0.6358599679045615,
+          "qwk": 0.5948132781492981,
+          "neg_mae": -0.07173644166260634,
+          "bal_acc": 0.591760508037587,
+          "neg_rps": -0.02955875891194555,
+          "neg_logloss": -0.22000066791601736,
+          "neg_brier": -0.10029090462603951,
+          "cum_auc": 0.8917648072002613
+        },
+        "MIB_fm": {
+          "macro_f1": 0.6129479538508128,
+          "qwk": 0.5476359146482366,
+          "neg_mae": -0.07934485214197369,
+          "bal_acc": 0.571593388785586,
+          "neg_rps": -0.03227091974454505,
+          "neg_logloss": -0.24069925937781006,
+          "neg_brier": -0.11041411180323253,
+          "cum_auc": 0.8916460228741858
+        },
+        "MC_c": {
+          "macro_f1": 0.6779634613746177,
+          "qwk": 0.6365723336259619,
+          "neg_mae": -0.06439039016528617,
+          "bal_acc": 0.6192879759782877,
+          "neg_rps": -0.027423217509056644,
+          "neg_logloss": -0.2105008691167812,
+          "neg_brier": -0.09393752132249567,
+          "cum_auc": 0.8942743693782588
+        }
+      },
+      "pred_share": {
+        "MAJORITY": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "GEO_ONLY": [
+          0.00221131142011169,
+          0.0735729545369364,
+          0.9242157340429519
+        ],
+        "WX_ONLY": [
+          0.0038604250215509162,
+          0.06337843409167572,
+          0.9327611408867733
+        ],
+        "MC": [
+          0.0038604250215509162,
+          0.07814549679547243,
+          0.9179940781829766
+        ],
+        "MONO_naive": [
+          0.004085304149019902,
+          0.07735841984933098,
+          0.9185562760016491
+        ],
+        "MONO_sc": [
+          0.004759941531426858,
+          0.0787076946141449,
+          0.9165323638544283
+        ],
+        "PHYS": [
+          7.495970915632848e-05,
+          0.024511824894119412,
+          0.9754132153967242
+        ],
+        "PHYS_sc": [
+          0.00048723810951613507,
+          0.030583561335782015,
+          0.9689292005547019
+        ],
+        "MIB": [
+          0.004047824294441738,
+          0.0766088227577677,
+          0.9193433529477906
+        ],
+        "MIB_fp": [
+          0.0048723810951613504,
+          0.07874517446872306,
+          0.9163824444361156
+        ],
+        "MIB_fm": [
+          0.004347663131067051,
+          0.0781829766500506,
+          0.9174693602188824
+        ],
+        "MC_c": [
+          0.0037105056032382595,
+          0.07994452981522432,
+          0.9163449645815375
+        ]
+      }
+    }
+  },
+  "sign_stability": [
+    {
+      "protocol": "spatial",
+      "fold": 1,
+      "driver": "temp",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0008264724794120589,
+      "frac_pos": 0.5136059200974193,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 1,
+      "driver": "rh",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.0019896826712458592,
+      "frac_pos": 0.46306964544986184,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 1,
+      "driver": "wind",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0010523565965854934,
+      "frac_pos": 0.41899676830125054,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 1,
+      "driver": "precip",
+      "sign_naive": -1,
+      "sign_screened": 1,
+      "agrees_with_naive": false,
+      "mean": 0.000533358129843757,
+      "frac_pos": 0.4428832373190951,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 2,
+      "driver": "temp",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.001771055768866198,
+      "frac_pos": 0.4770736733642452,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 2,
+      "driver": "rh",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.0012535779361175085,
+      "frac_pos": 0.5075640485223174,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 2,
+      "driver": "wind",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0021078927904375415,
+      "frac_pos": 0.4261627090066039,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 2,
+      "driver": "precip",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.0006860968899078687,
+      "frac_pos": 0.3653224673317409,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 3,
+      "driver": "temp",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0013334341453681386,
+      "frac_pos": 0.5286887168660568,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 3,
+      "driver": "rh",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.0011327272474334193,
+      "frac_pos": 0.5016654937837204,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 3,
+      "driver": "wind",
+      "sign_naive": 1,
+      "sign_screened": -1,
+      "agrees_with_naive": false,
+      "mean": -7.777119099918073e-05,
+      "frac_pos": 0.4189537884119165,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 3,
+      "driver": "precip",
+      "sign_naive": -1,
+      "sign_screened": 1,
+      "agrees_with_naive": false,
+      "mean": 0.00032402938938386883,
+      "frac_pos": 0.37091250293220734,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 4,
+      "driver": "temp",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0021855115869061424,
+      "frac_pos": 0.5322905446541469,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 4,
+      "driver": "rh",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.00112766356740451,
+      "frac_pos": 0.516461387158713,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 4,
+      "driver": "wind",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.001994421836380692,
+      "frac_pos": 0.4304313211258371,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 4,
+      "driver": "precip",
+      "sign_naive": -1,
+      "sign_screened": 1,
+      "agrees_with_naive": false,
+      "mean": 0.00017166062096654608,
+      "frac_pos": 0.370205591720133,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 5,
+      "driver": "temp",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0012420560172711334,
+      "frac_pos": 0.516530860728669,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 5,
+      "driver": "rh",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.0021423782954137736,
+      "frac_pos": 0.483141331834785,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 5,
+      "driver": "wind",
+      "sign_naive": 1,
+      "sign_screened": 1,
+      "agrees_with_naive": true,
+      "mean": 0.0017789523167593834,
+      "frac_pos": 0.41336517748431206,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    },
+    {
+      "protocol": "spatial",
+      "fold": 5,
+      "driver": "precip",
+      "sign_naive": -1,
+      "sign_screened": -1,
+      "agrees_with_naive": true,
+      "mean": -0.0015229306931006988,
+      "frac_pos": 0.3409665636414723,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "identified": false
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+protocol,fold,ctx_keep,screen,test_support,train_support
+spatial,1,['solar'],"[{'feature': 'solar', 'r2_on_drivers': 0.2864513310083938, 'resid_rel_std': 0.8447181003101605, 'exogenous': True}]","[113, 490, 4727]","[220, 2221, 18910]"
+spatial,2,['solar'],"[{'feature': 'solar', 'r2_on_drivers': 0.2691198858581101, 'resid_rel_std': 0.8549152672293845, 'exogenous': True}]","[49, 541, 4731]","[284, 2170, 18906]"
+spatial,3,['solar'],"[{'feature': 'solar', 'r2_on_drivers': 0.26747385682785796, 'resid_rel_std': 0.8558774112991545, 'exogenous': True}]","[50, 634, 4726]","[283, 2077, 18911]"
+spatial,4,['solar'],"[{'feature': 'solar', 'r2_on_drivers': 0.25536103607951643, 'resid_rel_std': 0.8629246571517607, 'exogenous': True}]","[66, 544, 4726]","[267, 2167, 18911]"
+spatial,5,['solar'],"[{'feature': 'solar', 'r2_on_drivers': 0.2589049708956124, 'resid_rel_std': 0.8608687641588509, 'exogenous': True}]","[55, 502, 4727]","[278, 2209, 18910]"

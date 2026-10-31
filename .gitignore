@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+paper/*.aux
+paper/*.log
+paper/*.pdf
+*.npz
+venv/
+.DS_Store
+__pycache__/

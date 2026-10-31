@@ -1,0 +1,16 @@
+tag,protocol,min,median,max,folds_lt20,folds_zero,n_folds
+b1,spatial,58,59.0,99,0,0,45
+b10,spatial,45,55.0,111,0,0,45
+b5,spatial,49,55.0,113,0,0,45
+closed,iid,66,67.0,67,0,0,45
+closed,point,66,67.0,67,0,0,45
+closed,spatial,56,57.0,103,0,0,45
+ctx,iid,66,67.0,67,0,0,45
+ctx,point,66,67.0,67,0,0,45
+ctx,spatial,56,57.0,103,0,0,45
+drv,iid,66,67.0,67,0,0,45
+drv,point,66,67.0,67,0,0,45
+drv,spatial,56,57.0,103,0,0,45
+k5,iid,66,67.0,67,0,0,45
+k5,point,66,67.0,67,0,0,45
+k5,spatial,57,58.0,100,0,0,45

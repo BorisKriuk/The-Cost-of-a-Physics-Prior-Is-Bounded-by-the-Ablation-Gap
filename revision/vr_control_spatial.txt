@@ -1,0 +1,97 @@
+[vr-control] N=26681 K=3 protocol=spatial drivers=['temp', 'rh', 'wind', 'precip'] synthetic class counts=[333, 2711, 23637]
+  [real_plus_noise] fold 1/5 done
+  [real_plus_noise] fold 2/5 done
+  [real_plus_noise] fold 3/5 done
+  [real_plus_noise] fold 4/5 done
+  [real_plus_noise] fold 5/5 done
+  [synthetic_monotone] fold 1/5 done
+  [synthetic_monotone] fold 2/5 done
+  [synthetic_monotone] fold 3/5 done
+  [synthetic_monotone] fold 4/5 done
+  [synthetic_monotone] fold 5/5 done
+
+=== vr by activity threshold eps (protocol spatial) ===
+eps                                            0.001   0.010   0.050
+experiment         declared      driver                             
+real_plus_noise    textbook      ALL          0.4797  0.4520  0.4420
+                                 noise_gauss  0.4919  0.4790  0.5089
+                                 noise_perm   0.4915  0.4949  0.4621
+                                 precip       0.4343  0.4115  0.3081
+                                 rh           0.4931  0.4384  0.4463
+                                 temp         0.4270  0.4128  0.4431
+                                 wind         0.5512  0.5203  0.5872
+synthetic_monotone flipped_signs ALL          0.8667  0.9101  0.9648
+                                 precip       0.8890  0.9254  0.9859
+                                 rh           0.8493  0.8981  0.9499
+                                 temp         0.8227  0.8695  0.9305
+                                 wind         0.9087  0.9452  0.9837
+                   true_signs    ALL          0.1333  0.0899  0.0352
+                                 precip       0.1110  0.0746  0.0141
+                                 rh           0.1507  0.1019  0.0501
+                                 temp         0.1773  0.1305  0.0695
+                                 wind         0.0913  0.0548  0.0163
+
+=== vr_weighted by activity threshold eps (protocol spatial) ===
+eps                                            0.001   0.010   0.050
+experiment         declared      driver                             
+real_plus_noise    textbook      ALL          0.4553  0.4450  0.4396
+                                 noise_gauss  0.4876  0.4847  0.5495
+                                 noise_perm   0.4864  0.4851  0.4573
+                                 precip       0.3872  0.3694  0.3147
+                                 rh           0.4510  0.4323  0.4377
+                                 temp         0.4204  0.4206  0.4396
+                                 wind         0.5539  0.5554  0.5807
+synthetic_monotone flipped_signs ALL          0.9365  0.9461  0.9727
+                                 precip       0.9493  0.9606  0.9903
+                                 rh           0.9201  0.9315  0.9572
+                                 temp         0.8976  0.9096  0.9468
+                                 wind         0.9650  0.9702  0.9856
+                   true_signs    ALL          0.0635  0.0539  0.0273
+                                 precip       0.0507  0.0394  0.0097
+                                 rh           0.0799  0.0685  0.0428
+                                 temp         0.1024  0.0904  0.0532
+                                 wind         0.0350  0.0298  0.0144
+
+=== active_frac by activity threshold eps (protocol spatial) ===
+eps                                            0.001   0.010   0.050
+experiment         declared      driver                             
+real_plus_noise    textbook      ALL          0.3968  0.1067  0.0159
+                                 noise_gauss  0.3637  0.0850  0.0063
+                                 noise_perm   0.3236  0.0704  0.0054
+                                 precip       0.3912  0.1255  0.0232
+                                 rh           0.4785  0.1387  0.0220
+                                 temp         0.4492  0.1250  0.0214
+                                 wind         0.3748  0.0958  0.0170
+synthetic_monotone flipped_signs ALL          0.3319  0.1724  0.0608
+                                 precip       0.2869  0.1181  0.0345
+                                 rh           0.3627  0.1880  0.0613
+                                 temp         0.3321  0.1720  0.0485
+                                 wind         0.3457  0.2114  0.0987
+                   true_signs    ALL          0.3319  0.1724  0.0608
+                                 precip       0.2869  0.1181  0.0345
+                                 rh           0.3627  0.1880  0.0613
+                                 temp         0.3321  0.1720  0.0485
+                                 wind         0.3457  0.2114  0.0987
+
+=== mean_effect by activity threshold eps (protocol spatial) ===
+eps                                            0.001   0.010   0.050
+experiment         declared      driver                             
+real_plus_noise    textbook      noise_gauss  0.0001  0.0001  0.0001
+                                 noise_perm   0.0001  0.0001  0.0001
+                                 precip      -0.0022 -0.0022 -0.0022
+                                 rh          -0.0010 -0.0010 -0.0010
+                                 temp         0.0015  0.0015  0.0015
+                                 wind        -0.0008 -0.0008 -0.0008
+synthetic_monotone flipped_signs precip      -0.0113 -0.0113 -0.0113
+                                 rh          -0.0149 -0.0149 -0.0149
+                                 temp         0.0118  0.0118  0.0118
+                                 wind         0.0230  0.0230  0.0230
+                   true_signs    precip      -0.0113 -0.0113 -0.0113
+                                 rh          -0.0149 -0.0149 -0.0149
+                                 temp         0.0118  0.0118  0.0118
+                                 wind         0.0230  0.0230  0.0230
+
+Reading: if driver VR on the real target ~ noise VR (~0.5 or undefined), VR is
+not evidence against the prior; the synthetic rows show what a correct prior
+(VR~0) and a wrong one (VR~1) look like under the same machinery.
+-> revision/vr_control_spatial.csv

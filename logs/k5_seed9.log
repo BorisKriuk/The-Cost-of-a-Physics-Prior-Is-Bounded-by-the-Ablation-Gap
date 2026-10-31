@@ -1,0 +1,383 @@
+[load] data/FiresRu.csv: 26681 строк, 9 колонок
+
+[columns] фактические колонки файла (9):
+   type_name              str        nuniq=5       примеры: Natural fire, Forest fire, Controlled burn
+   type_id                int64      nuniq=5       примеры: 4, 3, 5
+   lon                    float64    nuniq=25708   примеры: 131.5866, 131.5885, 131.9871
+   lat                    float64    nuniq=23547   примеры: 47.8662, 47.8809, 48.4973
+   temperature_c          float64    nuniq=2581    примеры: -9.44, -10.71, -7.77
+   precipitation_mm       float64    nuniq=571     примеры: 0.01, 0.05, 0.0
+   relative_humidity      float64    nuniq=4028    примеры: 72.98, 81.31, 68.41
+   wind_speed_ms          float64    nuniq=532     примеры: 1.14, 0.8, 0.97
+   solar_radiation        float64    nuniq=731     примеры: 4.59, 4.24, 4.66
+
+[columns] разрешение имён (ПРОВЕРЬ!):
+   dew       -> — не найдено —
+   heat      -> — не найдено —
+   solar     -> solar_radiation   [num]
+   vpd       -> — не найдено —
+   pressure  -> — не найдено —
+   cloud     -> — не найдено —
+   precip    -> precipitation_mm   [num]
+   rh        -> relative_humidity   [num]
+   wind      -> wind_speed_ms   [num]
+   temp      -> temperature_c   [num]
+   lat       -> lat   [num]
+   lon       -> lon   [num]
+   date      -> — не найдено —
+   label     -> type_name   [str]  отклонены: type_id[num]
+[label] отброшено 27 строк (0.1%) с классами вне --order: ['Peat fire']
+[solar] 'solar_radiation' -> роль: контекст-кандидат (решает шлюз экзогенности)
+[ctx] колонки даты в файле нет => temporal/spatiotemporal НЕДОСТУПНЫ, сезонность неконтролируема
+[data] строк после --order и notna(драйверы,гео): 26654 из 26681
+[dup] точных дублей по (гео+драйверы): 0 (0.00%); уникальных координат 26653 на 26654 строк; доля строк в повторяющихся точках 0.01%; макс. кратность 2
+[data] N=26654  K=4  классы(порядок)=['Controlled burn', 'Uncontrolled burn', 'Forest fire', 'Natural fire']
+[data] распределение: {'Controlled burn': 333, 'Uncontrolled burn': 2711, 'Forest fire': 18415, 'Natural fire': 5195}  доли=[0.0125, 0.1017, 0.6909, 0.1949]
+[data] baseline macro-F1 «всегда мажоритарный» = 0.2043
+[data] драйверы=['temp', 'rh', 'wind', 'precip']  контекст-кандидаты=['solar']  блоков(2.0deg)=429  уник.точек=26653
+
+[protocols] ['iid', 'point', 'spatial']  (available: ['iid', 'point', 'spatial'])  tag=k5  split_seed=9
+
+[screen] exogeneity of context candidates (full data, report only):
+feature  r2_on_drivers  resid_rel_std  exogenous
+  solar       0.264585       0.857563       True
+[gate] global OPEN -> ctx_keep=['solar']
+[gate] in-CV decision scope='fold'
+
+=== protocol: iid ===
+  [iid] fold 1/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[67, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [iid] fold 2/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[67, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [iid] fold 3/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[67, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [iid] fold 4/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[66, 543, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [iid] fold 5/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[66, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+
+  baseline: MAJORITY=0.2043  GEO_ONLY=0.6681  WX_ONLY=0.6801  (valid bootstrap replicates 0)
+  F1(macro), pooled OOF and fold spread:
+    MAJORITY    oof=0.2043  fold=0.2043+-0.0000  [0.2043,0.2043]  perclass=[0.0, 0.0, 0.817, 0.0]
+    GEO_ONLY    oof=0.6681  fold=0.6680+-0.0176  [0.6547,0.6943]  perclass=[0.444, 0.738, 0.89, 0.6]
+    WX_ONLY     oof=0.6801  fold=0.6800+-0.0061  [0.6725,0.6884]  perclass=[0.627, 0.674, 0.89, 0.529]
+    MC          oof=0.7959  fold=0.7958+-0.0103  [0.7799,0.8063]  perclass=[0.71, 0.814, 0.924, 0.736]
+    MONO_naive  oof=0.7359  fold=0.7359+-0.0212  [0.7129,0.7627]  perclass=[0.617, 0.772, 0.904, 0.651]
+    MONO_sc     oof=0.7359  fold=0.7359+-0.0212  [0.7129,0.7627]  perclass=[0.617, 0.772, 0.904, 0.651]
+    PHYS        oof=0.2974  fold=0.2973+-0.0060  [0.2923,0.3074]  perclass=[0.006, 0.306, 0.835, 0.043]
+    PHYS_sc     oof=0.2974  fold=0.2973+-0.0060  [0.2923,0.3074]  perclass=[0.006, 0.306, 0.835, 0.043]
+    MIB         oof=0.7555  fold=0.7552+-0.0250  [0.7302,0.7928]  perclass=[0.62, 0.801, 0.915, 0.686]
+    MIB_fp      oof=0.7434  fold=0.7434+-0.0138  [0.7277,0.7645]  perclass=[0.615, 0.796, 0.909, 0.654]
+    MIB_fm      oof=0.7391  fold=0.7391+-0.0153  [0.7263,0.7565]  perclass=[0.606, 0.774, 0.908, 0.668]
+    MC_c        oof=0.8047  fold=0.8046+-0.0077  [0.7963,0.8166]  perclass=[0.708, 0.835, 0.929, 0.747]
+  paired differences vs MC (95% cluster bootstrap):
+    MAJORITY    d=-0.5916 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.1278 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1158 [+nan,+nan] p=nan
+    MONO_naive  d=-0.0600 [+nan,+nan] p=nan
+    MONO_sc     d=-0.0600 [+nan,+nan] p=nan
+    PHYS        d=-0.4985 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.4985 [+nan,+nan] p=nan
+    MIB         d=-0.0404 [+nan,+nan] p=nan
+    MIB_fp      d=-0.0525 [+nan,+nan] p=nan
+    MIB_fm      d=-0.0568 [+nan,+nan] p=nan
+    MC_c        d=+0.0089 [+nan,+nan] p=nan
+  paired differences vs WX_ONLY (95% cluster bootstrap):
+    MAJORITY    d=-0.4758 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0120 [+nan,+nan] p=nan
+    MC          d=+0.1158 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0558 [+nan,+nan] p=nan
+    MONO_sc     d=+0.0558 [+nan,+nan] p=nan
+    PHYS        d=-0.3827 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.3827 [+nan,+nan] p=nan
+    MIB         d=+0.0754 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0633 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0590 [+nan,+nan] p=nan
+    MC_c        d=+0.1247 [+nan,+nan] p=nan
+  paired differences vs GEO_ONLY (95% cluster bootstrap):
+    MAJORITY    d=-0.4638 [+nan,+nan] p=nan
+    WX_ONLY     d=+0.0120 [+nan,+nan] p=nan
+    MC          d=+0.1278 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0678 [+nan,+nan] p=nan
+    MONO_sc     d=+0.0678 [+nan,+nan] p=nan
+    PHYS        d=-0.3707 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.3707 [+nan,+nan] p=nan
+    MIB         d=+0.0874 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0753 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0710 [+nan,+nan] p=nan
+    MC_c        d=+0.1367 [+nan,+nan] p=nan
+  paired differences vs MONO_sc (95% cluster bootstrap):
+    MAJORITY    d=-0.5316 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0678 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.0558 [+nan,+nan] p=nan
+    MC          d=+0.0600 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0000 [+0.0000,+0.0000] p=1.000  (identical)
+    PHYS        d=-0.4385 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.4385 [+nan,+nan] p=nan
+    MIB         d=+0.0196 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0075 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0032 [+nan,+nan] p=nan
+    MC_c        d=+0.0689 [+nan,+nan] p=nan
+  paired differences vs MC_c (95% cluster bootstrap):
+    MAJORITY    d=-0.6005 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.1367 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1247 [+nan,+nan] p=nan
+    MC          d=-0.0089 [+nan,+nan] p=nan
+    MONO_naive  d=-0.0689 [+nan,+nan] p=nan
+    MONO_sc     d=-0.0689 [+nan,+nan] p=nan
+    PHYS        d=-0.5074 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.5074 [+nan,+nan] p=nan
+    MIB         d=-0.0493 [+nan,+nan] p=nan
+    MIB_fp      d=-0.0613 [+nan,+nan] p=nan
+    MIB_fm      d=-0.0656 [+nan,+nan] p=nan
+  metrics (higher = better):    macro_f1         qwk     neg_mae     bal_acc     neg_rps neg_logloss   neg_brier     cum_auc
+    MAJORITY         0.2043      0.0000     -0.3216      0.2500     -0.0901     -0.8614     -0.4742      0.4993
+    GEO_ONLY         0.6681      0.5777     -0.1982      0.6246     -0.0499     -0.5065     -0.2615      0.9202
+    WX_ONLY          0.6801      0.5409     -0.2090      0.6270     -0.0533     -0.5267     -0.2746      0.9101
+    MC               0.7959      0.7273     -0.1353      0.7498     -0.0359     -0.3733     -0.1888      0.9509
+    MONO_naive       0.7359      0.6491     -0.1712      0.6933     -0.0443     -0.4471     -0.2323      0.9333
+    MONO_sc          0.7359      0.6491     -0.1712      0.6933     -0.0443     -0.4471     -0.2323      0.9333
+    PHYS             0.2974      0.1050     -0.3162      0.3103     -0.0843     -0.7845     -0.4314      0.7041
+    PHYS_sc          0.2974      0.1050     -0.3162      0.3103     -0.0843     -0.7845     -0.4314      0.7041
+    MIB              0.7555      0.6839     -0.1528      0.7063     -0.0397     -0.4110     -0.2072      0.9417
+    MIB_fp           0.7434      0.6613     -0.1638      0.6970     -0.0425     -0.4273     -0.2232      0.9352
+    MIB_fm           0.7391      0.6566     -0.1654      0.6944     -0.0429     -0.4278     -0.2239      0.9371
+    MC_c             0.8047      0.7413     -0.1271      0.7556     -0.0339     -0.3555     -0.1776      0.9532
+  VR_partial(MC): naive=0.4631 (active 75207) | screened=0.4631 (active 75207)
+  VR_e2e (own / vs naive / vs screened):
+    MAJORITY    own=n/a  naive=n/a  screened=n/a 
+    GEO_ONLY    own=n/a  naive=n/a  screened=n/a 
+    WX_ONLY     own=n/a  naive=0.4663 screened=0.4663
+    MC          own=n/a  naive=0.4631 screened=0.4631
+    MONO_naive  own=0.0000 naive=0.0000 screened=0.0000
+    MONO_sc     own=0.0000 naive=0.0000 screened=0.0000
+    PHYS        own=0.0000 naive=0.0000 screened=0.0000
+    PHYS_sc     own=0.0000 naive=0.0000 screened=0.0000
+    MIB         own=0.0000 naive=0.0000 screened=0.0000
+    MIB_fp      own=0.0000 naive=0.0000 screened=0.0000
+    MIB_fm      own=0.0000 naive=0.0000 screened=0.0000
+    MC_c        own=n/a  naive=0.4824 screened=0.4824
+  aliases (model->canonical, #folds): {'MONO_sc->MONO_naive': 5, 'PHYS_sc->PHYS': 5}
+
+=== protocol: point ===
+  [point] fold 1/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[67, 543, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [point] fold 2/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[67, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [point] fold 3/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[66, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [point] fold 4/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[67, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+  [point] fold 5/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[66, 542, 3683, 1039]  aliases=['MONO_sc', 'PHYS_sc']
+
+  baseline: MAJORITY=0.2043  GEO_ONLY=0.6701  WX_ONLY=0.6855  (valid bootstrap replicates 0)
+  F1(macro), pooled OOF and fold spread:
+    MAJORITY    oof=0.2043  fold=0.2043+-0.0000  [0.2043,0.2043]  perclass=[0.0, 0.0, 0.817, 0.0]
+    GEO_ONLY    oof=0.6701  fold=0.6695+-0.0217  [0.6438,0.7028]  perclass=[0.444, 0.743, 0.89, 0.603]
+    WX_ONLY     oof=0.6855  fold=0.6851+-0.0215  [0.6657,0.7135]  perclass=[0.637, 0.682, 0.891, 0.532]
+    MC          oof=0.7920  fold=0.7918+-0.0113  [0.7813,0.8097]  perclass=[0.7, 0.812, 0.923, 0.733]
+    MONO_naive  oof=0.7302  fold=0.7294+-0.0195  [0.7133,0.7516]  perclass=[0.602, 0.771, 0.902, 0.647]
+    MONO_sc     oof=0.7302  fold=0.7294+-0.0195  [0.7133,0.7516]  perclass=[0.602, 0.771, 0.902, 0.647]
+    PHYS        oof=0.2967  fold=0.2967+-0.0031  [0.2934,0.3010]  perclass=[0.0, 0.308, 0.835, 0.043]
+    PHYS_sc     oof=0.2967  fold=0.2967+-0.0031  [0.2934,0.3010]  perclass=[0.0, 0.308, 0.835, 0.043]
+    MIB         oof=0.7564  fold=0.7561+-0.0257  [0.7302,0.7887]  perclass=[0.625, 0.798, 0.915, 0.688]
+    MIB_fp      oof=0.7427  fold=0.7421+-0.0256  [0.7143,0.7715]  perclass=[0.62, 0.794, 0.906, 0.65]
+    MIB_fm      oof=0.7316  fold=0.7305+-0.0261  [0.7042,0.7619]  perclass=[0.584, 0.77, 0.907, 0.665]
+    MC_c        oof=0.7960  fold=0.7956+-0.0171  [0.7760,0.8179]  perclass=[0.692, 0.828, 0.927, 0.737]
+  paired differences vs MC (95% cluster bootstrap):
+    MAJORITY    d=-0.5877 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.1219 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1065 [+nan,+nan] p=nan
+    MONO_naive  d=-0.0617 [+nan,+nan] p=nan
+    MONO_sc     d=-0.0617 [+nan,+nan] p=nan
+    PHYS        d=-0.4953 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.4953 [+nan,+nan] p=nan
+    MIB         d=-0.0356 [+nan,+nan] p=nan
+    MIB_fp      d=-0.0492 [+nan,+nan] p=nan
+    MIB_fm      d=-0.0604 [+nan,+nan] p=nan
+    MC_c        d=+0.0041 [+nan,+nan] p=nan
+  paired differences vs WX_ONLY (95% cluster bootstrap):
+    MAJORITY    d=-0.4812 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0154 [+nan,+nan] p=nan
+    MC          d=+0.1065 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0448 [+nan,+nan] p=nan
+    MONO_sc     d=+0.0448 [+nan,+nan] p=nan
+    PHYS        d=-0.3888 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.3888 [+nan,+nan] p=nan
+    MIB         d=+0.0709 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0573 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0461 [+nan,+nan] p=nan
+    MC_c        d=+0.1105 [+nan,+nan] p=nan
+  paired differences vs GEO_ONLY (95% cluster bootstrap):
+    MAJORITY    d=-0.4658 [+nan,+nan] p=nan
+    WX_ONLY     d=+0.0154 [+nan,+nan] p=nan
+    MC          d=+0.1219 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0602 [+nan,+nan] p=nan
+    MONO_sc     d=+0.0602 [+nan,+nan] p=nan
+    PHYS        d=-0.3734 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.3734 [+nan,+nan] p=nan
+    MIB         d=+0.0863 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0727 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0615 [+nan,+nan] p=nan
+    MC_c        d=+0.1259 [+nan,+nan] p=nan
+  paired differences vs MONO_sc (95% cluster bootstrap):
+    MAJORITY    d=-0.5259 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0602 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.0448 [+nan,+nan] p=nan
+    MC          d=+0.0617 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0000 [+0.0000,+0.0000] p=1.000  (identical)
+    PHYS        d=-0.4336 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.4336 [+nan,+nan] p=nan
+    MIB         d=+0.0261 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0125 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0013 [+nan,+nan] p=nan
+    MC_c        d=+0.0658 [+nan,+nan] p=nan
+  paired differences vs MC_c (95% cluster bootstrap):
+    MAJORITY    d=-0.5917 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.1259 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1105 [+nan,+nan] p=nan
+    MC          d=-0.0041 [+nan,+nan] p=nan
+    MONO_naive  d=-0.0658 [+nan,+nan] p=nan
+    MONO_sc     d=-0.0658 [+nan,+nan] p=nan
+    PHYS        d=-0.4993 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.4993 [+nan,+nan] p=nan
+    MIB         d=-0.0396 [+nan,+nan] p=nan
+    MIB_fp      d=-0.0533 [+nan,+nan] p=nan
+    MIB_fm      d=-0.0644 [+nan,+nan] p=nan
+  metrics (higher = better):    macro_f1         qwk     neg_mae     bal_acc     neg_rps neg_logloss   neg_brier     cum_auc
+    MAJORITY         0.2043      0.0000     -0.3216      0.2500     -0.0901     -0.8614     -0.4742      0.4993
+    GEO_ONLY         0.6701      0.5799     -0.1977      0.6261     -0.0501     -0.5039     -0.2622      0.9210
+    WX_ONLY          0.6855      0.5472     -0.2063      0.6324     -0.0537     -0.5322     -0.2763      0.9059
+    MC               0.7920      0.7236     -0.1363      0.7444     -0.0359     -0.3774     -0.1893      0.9492
+    MONO_naive       0.7302      0.6436     -0.1735      0.6870     -0.0445     -0.4433     -0.2327      0.9340
+    MONO_sc          0.7302      0.6436     -0.1735      0.6870     -0.0445     -0.4433     -0.2327      0.9340
+    PHYS             0.2967      0.1083     -0.3155      0.3104     -0.0843     -0.7857     -0.4314      0.7029
+    PHYS_sc          0.2967      0.1083     -0.3155      0.3104     -0.0843     -0.7857     -0.4314      0.7029
+    MIB              0.7564      0.6804     -0.1531      0.7059     -0.0399     -0.4040     -0.2077      0.9417
+    MIB_fp           0.7427      0.6634     -0.1650      0.6971     -0.0426     -0.4279     -0.2232      0.9355
+    MIB_fm           0.7316      0.6504     -0.1681      0.6880     -0.0431     -0.4276     -0.2241      0.9381
+    MC_c             0.7960      0.7328     -0.1310      0.7445     -0.0343     -0.3582     -0.1799      0.9527
+  VR_partial(MC): naive=0.4657 (active 75450) | screened=0.4657 (active 75450)
+  VR_e2e (own / vs naive / vs screened):
+    MAJORITY    own=n/a  naive=n/a  screened=n/a 
+    GEO_ONLY    own=n/a  naive=n/a  screened=n/a 
+    WX_ONLY     own=n/a  naive=0.4667 screened=0.4667
+    MC          own=n/a  naive=0.4657 screened=0.4657
+    MONO_naive  own=0.0000 naive=0.0000 screened=0.0000
+    MONO_sc     own=0.0000 naive=0.0000 screened=0.0000
+    PHYS        own=0.0000 naive=0.0000 screened=0.0000
+    PHYS_sc     own=0.0000 naive=0.0000 screened=0.0000
+    MIB         own=0.0000 naive=0.0000 screened=0.0000
+    MIB_fp      own=0.0000 naive=0.0000 screened=0.0000
+    MIB_fm      own=0.0000 naive=0.0000 screened=0.0000
+    MC_c        own=n/a  naive=0.4814 screened=0.4814
+  aliases (model->canonical, #folds): {'MONO_sc->MONO_naive': 5, 'PHYS_sc->PHYS': 5}
+
+=== protocol: spatial ===
+  [spatial] fold 1/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[100, 542, 3683, 1036]  aliases=['MONO_sc', 'PHYS_sc']
+  [spatial] fold 2/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[58, 543, 3683, 1036]  aliases=['MONO_sc', 'PHYS_sc']
+  [spatial] fold 3/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[58, 542, 3683, 1036]  aliases=['MONO_sc', 'PHYS_sc']
+  [spatial] fold 4/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[59, 542, 3683, 1051]  aliases=['MONO_sc', 'PHYS_sc']
+  [spatial] fold 5/5  ctx=['solar']  signs={'temp': 1, 'rh': -1, 'wind': 1, 'precip': -1}  test_support=[58, 542, 3683, 1036]  aliases=['MONO_sc', 'PHYS_sc']
+
+  baseline: MAJORITY=0.2043  GEO_ONLY=0.4858  WX_ONLY=0.4112  (valid bootstrap replicates 0)
+  F1(macro), pooled OOF and fold spread:
+    MAJORITY    oof=0.2043  fold=0.2043+-0.0004  [0.2036,0.2046]  perclass=[0.0, 0.0, 0.817, 0.0]
+    GEO_ONLY    oof=0.4858  fold=0.4815+-0.0307  [0.4475,0.5303]  perclass=[0.019, 0.62, 0.85, 0.453]
+    WX_ONLY     oof=0.4112  fold=0.4110+-0.0586  [0.3315,0.4806]  perclass=[0.11, 0.484, 0.839, 0.212]
+    MC          oof=0.5349  fold=0.5376+-0.0566  [0.4656,0.6150]  perclass=[0.153, 0.637, 0.863, 0.486]
+    MONO_naive  oof=0.5501  fold=0.5484+-0.0529  [0.5041,0.6394]  perclass=[0.184, 0.653, 0.862, 0.501]
+    MONO_sc     oof=0.5501  fold=0.5484+-0.0529  [0.5041,0.6394]  perclass=[0.184, 0.653, 0.862, 0.501]
+    PHYS        oof=0.2931  fold=0.2923+-0.0283  [0.2593,0.3248]  perclass=[0.011, 0.288, 0.835, 0.038]
+    PHYS_sc     oof=0.2931  fold=0.2923+-0.0283  [0.2593,0.3248]  perclass=[0.011, 0.288, 0.835, 0.038]
+    MIB         oof=0.5474  fold=0.5470+-0.0392  [0.4989,0.6068]  perclass=[0.157, 0.653, 0.87, 0.51]
+    MIB_fp      oof=0.5613  fold=0.5606+-0.0598  [0.4843,0.6465]  perclass=[0.223, 0.661, 0.866, 0.496]
+    MIB_fm      oof=0.5450  fold=0.5453+-0.0407  [0.5192,0.6173]  perclass=[0.151, 0.65, 0.866, 0.513]
+    MC_c        oof=0.5520  fold=0.5543+-0.0400  [0.5014,0.6032]  perclass=[0.169, 0.666, 0.872, 0.5]
+  paired differences vs MC (95% cluster bootstrap):
+    MAJORITY    d=-0.3306 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0491 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1237 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0153 [+nan,+nan] p=nan
+    MONO_sc     d=+0.0153 [+nan,+nan] p=nan
+    PHYS        d=-0.2418 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.2418 [+nan,+nan] p=nan
+    MIB         d=+0.0125 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0265 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0102 [+nan,+nan] p=nan
+    MC_c        d=+0.0171 [+nan,+nan] p=nan
+  paired differences vs WX_ONLY (95% cluster bootstrap):
+    MAJORITY    d=-0.2069 [+nan,+nan] p=nan
+    GEO_ONLY    d=+0.0746 [+nan,+nan] p=nan
+    MC          d=+0.1237 [+nan,+nan] p=nan
+    MONO_naive  d=+0.1389 [+nan,+nan] p=nan
+    MONO_sc     d=+0.1389 [+nan,+nan] p=nan
+    PHYS        d=-0.1181 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.1181 [+nan,+nan] p=nan
+    MIB         d=+0.1362 [+nan,+nan] p=nan
+    MIB_fp      d=+0.1502 [+nan,+nan] p=nan
+    MIB_fm      d=+0.1338 [+nan,+nan] p=nan
+    MC_c        d=+0.1408 [+nan,+nan] p=nan
+  paired differences vs GEO_ONLY (95% cluster bootstrap):
+    MAJORITY    d=-0.2815 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.0746 [+nan,+nan] p=nan
+    MC          d=+0.0491 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0643 [+nan,+nan] p=nan
+    MONO_sc     d=+0.0643 [+nan,+nan] p=nan
+    PHYS        d=-0.1927 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.1927 [+nan,+nan] p=nan
+    MIB         d=+0.0616 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0755 [+nan,+nan] p=nan
+    MIB_fm      d=+0.0592 [+nan,+nan] p=nan
+    MC_c        d=+0.0662 [+nan,+nan] p=nan
+  paired differences vs MONO_sc (95% cluster bootstrap):
+    MAJORITY    d=-0.3458 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0643 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1389 [+nan,+nan] p=nan
+    MC          d=-0.0153 [+nan,+nan] p=nan
+    MONO_naive  d=+0.0000 [+0.0000,+0.0000] p=1.000  (identical)
+    PHYS        d=-0.2571 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.2571 [+nan,+nan] p=nan
+    MIB         d=-0.0028 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0112 [+nan,+nan] p=nan
+    MIB_fm      d=-0.0051 [+nan,+nan] p=nan
+    MC_c        d=+0.0019 [+nan,+nan] p=nan
+  paired differences vs MC_c (95% cluster bootstrap):
+    MAJORITY    d=-0.3477 [+nan,+nan] p=nan
+    GEO_ONLY    d=-0.0662 [+nan,+nan] p=nan
+    WX_ONLY     d=-0.1408 [+nan,+nan] p=nan
+    MC          d=-0.0171 [+nan,+nan] p=nan
+    MONO_naive  d=-0.0019 [+nan,+nan] p=nan
+    MONO_sc     d=-0.0019 [+nan,+nan] p=nan
+    PHYS        d=-0.2589 [+nan,+nan] p=nan
+    PHYS_sc     d=-0.2589 [+nan,+nan] p=nan
+    MIB         d=-0.0046 [+nan,+nan] p=nan
+    MIB_fp      d=+0.0093 [+nan,+nan] p=nan
+    MIB_fm      d=-0.0070 [+nan,+nan] p=nan
+  metrics (higher = better):    macro_f1         qwk     neg_mae     bal_acc     neg_rps neg_logloss   neg_brier     cum_auc
+    MAJORITY         0.2043      0.0000     -0.3216      0.2500     -0.0901     -0.8616     -0.4742      0.4805
+    GEO_ONLY         0.4858      0.4008     -0.2684      0.4634     -0.0669     -0.6852     -0.3486      0.7855
+    WX_ONLY          0.4112      0.2103     -0.3164      0.3928     -0.0807     -0.8293     -0.4141      0.7225
+    MC               0.5349      0.4423     -0.2472      0.4960     -0.0629     -0.6530     -0.3263      0.8079
+    MONO_naive       0.5501      0.4593     -0.2475      0.5153     -0.0645     -0.6709     -0.3357      0.8053
+    MONO_sc          0.5501      0.4593     -0.2475      0.5153     -0.0645     -0.6709     -0.3357      0.8053
+    PHYS             0.2931      0.0889     -0.3188      0.3067     -0.0861     -0.8094     -0.4391      0.6160
+    PHYS_sc          0.2931      0.0889     -0.3188      0.3067     -0.0861     -0.8094     -0.4391      0.6160
+    MIB              0.5474      0.4638     -0.2362      0.5071     -0.0627     -0.6598     -0.3251      0.8173
+    MIB_fp           0.5613      0.4683     -0.2403      0.5203     -0.0636     -0.6597     -0.3304      0.8188
+    MIB_fm           0.5450      0.4598     -0.2423      0.5097     -0.0633     -0.6552     -0.3269      0.8204
+    MC_c             0.5520      0.4656     -0.2331      0.5077     -0.0608     -0.6383     -0.3139      0.8129
+  VR_partial(MC): naive=0.4691 (active 80099) | screened=0.4691 (active 80099)
+  VR_e2e (own / vs naive / vs screened):
+    MAJORITY    own=n/a  naive=n/a  screened=n/a 
+    GEO_ONLY    own=n/a  naive=n/a  screened=n/a 
+    WX_ONLY     own=n/a  naive=0.4592 screened=0.4592
+    MC          own=n/a  naive=0.4691 screened=0.4691
+    MONO_naive  own=0.0000 naive=0.0000 screened=0.0000
+    MONO_sc     own=0.0000 naive=0.0000 screened=0.0000
+    PHYS        own=0.0000 naive=0.0000 screened=0.0000
+    PHYS_sc     own=0.0000 naive=0.0000 screened=0.0000
+    MIB         own=0.0000 naive=0.0000 screened=0.0000
+    MIB_fp      own=0.0000 naive=0.0000 screened=0.0000
+    MIB_fm      own=0.0000 naive=0.0000 screened=0.0000
+    MC_c        own=n/a  naive=0.4888 screened=0.4888
+  aliases (model->canonical, #folds): {'MONO_sc->MONO_naive': 5, 'PHYS_sc->PHYS': 5}
+
+[signs] sign stability (folds of all protocols):
+   temp    agrees with textbook 15/15 folds, CI excludes 0 in 0/15, '+' signs 15/15
+   rh      agrees with textbook 15/15 folds, CI excludes 0 in 0/15, '+' signs 0/15
+   wind    agrees with textbook 15/15 folds, CI excludes 0 in 0/15, '+' signs 15/15
+   precip  agrees with textbook 15/15 folds, CI excludes 0 in 0/15, '+' signs 0/15
+
+[done] -> results_rep/k5/seed9/results.json, table_main.csv, table_metrics.csv, table_vr_profile.csv, table_signs.csv, table_screen.csv, table_gate_by_fold.csv, oof_*.npz

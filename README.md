@@ -3,7 +3,7 @@
 # 🔥 The Cost of a Physics Prior Is Bounded by the Ablation Gap
 
 [![license](https://img.shields.io/badge/license-Apache--2.0-007ec6)](LICENSE)
-[![python](https://img.shields.io/badge/python-3.10+-007ec6?logo=python&logoColor=white)](https://www.python.org/)
+[![python](https://img.shields.io/badge/python-3.10%2B-007ec6?logo=python&logoColor=white)](https://www.python.org/)
 [![reproducible](https://img.shields.io/badge/reproducible-seed%200-44bb00)](#-reproduce)
 [![task](https://img.shields.io/badge/task-ordinal%20wildfire%20severity-b5562f)](#-headline-result)
 [![N](https://img.shields.io/badge/N-26%2C681-555555)](#-headline-result)
@@ -52,16 +52,16 @@ Subtracting gives `P = F1(MC) − F1(MONO) ∈ [0, Δ]` with `Δ = F1(MC) − F1
 
 ## 📊 Headline result
 
-Out-of-fold macro-F1 from `results/ctx/`.
-`Δ = MC − GEO_ONLY` is the **certified ceiling** on the cost of any monotone prior. `P = MC − MONO_sc` is the **measured price**.
+Out-of-fold macro-F1 from `results/ctx/` (partition seed 0).
+`Δ = MC − GEO_ONLY` is the **certified ceiling** on the cost of any monotone prior. `P = MC − MONO_sc` is the **measured price**. `s` is the protocol's **resolution floor** (median over nine fold partitions).
 
-| protocol | `GEO_ONLY` | `MC` | `MONO_sc` | **`Δ`** (ceiling) | **`P`** (price) | `P / Δ` |
-|:--|--:|--:|--:|--:|--:|--:|
-| `iid`     | 0.7028 | 0.8316 | 0.7843 | **0.1288** | **0.0473** | 0.37 |
-| `point`   | 0.7146 | 0.8311 | 0.7755 | **0.1165** | **0.0556** | 0.48 |
-| `spatial` | 0.5602 | 0.6029 | 0.5850 | **0.0427** | **0.0179**\* | 0.42 |
+| protocol | `GEO_ONLY` | `MC` | `MONO_sc` | **`Δ`** (ceiling) | **`P`** (price) | `P / Δ` | `s` (floor) |
+|:--|--:|--:|--:|--:|--:|--:|--:|
+| `iid`     | 0.7028 | 0.8316 | 0.7843 | **0.1288** | **0.0473** | 0.37 | 0.0023 |
+| `point`   | 0.7146 | 0.8311 | 0.7755 | **0.1165** | **0.0555** | 0.48 | 0.0028 |
+| `spatial` | 0.5602 | 0.6029 | 0.5850 | **0.0427** | **0.0179**\* | 0.42 | 0.0312 |
 
-<sub>\* Below the self-calibrated floor <code>s = 0.0220</code>, so this value carries no interpretation.</sub>
+<sub>\* Below the spatial floor <code>s = 0.0312</code> (maximum over partitions <code>0.0413</code>), so this value is unresolved. Over nine partitions the spatial price is <code>0.0050 ± 0.0100</code> and falls below the floor in all nine.</sub>
 
 ---
 
@@ -69,19 +69,19 @@ Out-of-fold macro-F1 from `results/ctx/`.
 
 > [!NOTE]
 > **🛡️ Coordinates shield the prior.**
-> Under spatial blocking, `{lat, lon}` alone recover **92.9%** of the full model (`0.5602 / 0.6029`). The same screened prior costs `0.0473` when shielded and `0.3470` when unshielded (`PHYS_sc` vs `WX_ONLY`). That is a **7.3×** swing from identical physics.
+> Under spatial blocking, `{lat, lon}` alone recover **92.9%** of the full model (`0.5602 / 0.6029`). Under i.i.d. splits the same screened prior costs `0.0473` when shielded and `0.3470` when unshielded (`PHYS_sc` vs `WX_ONLY`). That is a **7.3×** swing from identical physics (median **7.7×** over nine partitions, and 4.7–8.5× under balanced accuracy, weighted kappa, ordinal MAE, Brier score, log-loss and RPS).
 
 > [!WARNING]
 > **🔀 Prices do not transfer.**
-> Coarsening the blocks from 1° to 10° moves `Δ` from `0.0942` to `0.0050` and the price from `+0.0456` to `−0.0139`. The sign flips because of the split alone. Both 10° values are smaller in magnitude than `s`, so the negative price is noise and does not break the bound.
+> Coarsening the spatial blocks from 1° to 10° moves `Δ` from `0.0942` to `0.0050` and the price from `+0.0456` to `−0.0139`. The sign flips because of the split alone. Both 10° values are smaller in magnitude than the spatial floor `0.0312`, so the negative price is noise and does not break the bound.
 
 > [!TIP]
 > **📏 A free noise floor.**
-> Of **318** orderings the pipeline must satisfy, **18** invert, which gives `s = 0.0220`. Before any constrained model is trained, this floor voids **4 of 21** price cells and **10** grid cells.
+> Orderings the pipeline must satisfy sometimes invert, and the largest inversion is the floor. Over nine fold partitions (**188–196** distinct comparisons each, **19–30** inverted) the median floor is `0.0023` (`iid`), `0.0028` (`point`) and `0.0312` (`spatial`). The seed-0 grid alone (**318** formal orderings, **18** inverted, **12** distinct) gives `0.0220`, which is optimistic. The spatial floor leaves **4 of 21** headline price cells unresolved, and it flags **10** grid cells (in 2 of 21 configuration × protocol cells) before any constrained model is trained.
 
 > [!CAUTION]
 > **⚖️ Cost and compliance are independent.**
-> The unconstrained model violates the textbook prior at a rate of **0.48**. Enforcing the prior costs **0.02**.
+> The unconstrained model violates the textbook prior at a rate of **0.48**; a pure-noise feature scores **0.49** on the same instrument. Enforcing the prior costs **0.014–0.056**.
 
 ---
 
@@ -95,7 +95,7 @@ flowchart LR
     B["fit(X \ S)"] --> C
     C -- "Δ < s" --> D["❌ unidentifiable<br/>do not report a price"]
     C -- "Δ ≥ s" --> E["✅ proceed<br/>price ∈ [0, Δ]"]
-    E --> F["report (price, ceiling, slack)"]
+    E --> F["report (price, ceiling, floor)"]
 ```
 
 ```python
@@ -134,7 +134,7 @@ pip install -r requirements.txt
 | `glob` | leak probe |
 | `k5` | `K = 4` severity classes |
 
-`ctx`, `b2` and `glob` produce byte-identical outputs.
+`ctx`, `b2` and `glob` produce byte-identical outputs, which leaves seven numerically distinct configurations. These seven are repeated for partition seeds 1–9 to estimate the floor.
 
 </details>
 
@@ -150,9 +150,10 @@ pip install -r requirements.txt
 | max leaves | 31 |
 | min samples / leaf | 40 |
 | L2 regularization | 1.0 |
-| seed | 0 |
+| early stopping | none |
+| partition seed | 0 |
 
-Arms differ **only** in feature set and monotonicity spec. This makes the class nesting exact, and no penalty weight is tuned.
+Arms differ **only** in feature set and monotonicity spec. This makes the class nesting exact, and no penalty weight is tuned. The learner is deterministic given its training data.
 
 </details>
 
@@ -170,7 +171,7 @@ Arms differ **only** in feature set and monotonicity spec. This makes the class 
 | `src/mib_figures_paper.py` | figures written to `paper/figs_ctx/` |
 | `results/<tag>/`, `logs/` | per-configuration artefacts and full run logs |
 
-**Arms:** `MAJORITY` · `GEO_ONLY` · `WX_ONLY` · `MC` · `MONO_naive` · `MONO_sc` · `PHYS` · `PHYS_sc` · `MIB` · `MIB_fp` · `MIB_fm`
+**Arms:** `MAJORITY` · `GEO_ONLY` · `WX_ONLY` · `MC` · `MONO_naive` · `MONO_sc` · `PHYS` · `PHYS_sc` · `MIB` · `MIB_fp` · `MIB_fm` (plus `MC_c`, the feature-matched reference for the `MIB` arms, in the repeated-partition study only)
 
 | symbol | features |
 |:--|:--|
@@ -187,7 +188,7 @@ This is **not** a new algorithm. It is also **not** a claim that shape constrain
 The claim is narrower:
 
 > **In-distribution accuracy cost is the wrong instrument for evaluating a physical prior.**
-> Report the triple **`(price, ceiling, slack)`** together with the free feature set.
+> Report the triple **`(price, ceiling, floor)`** for the protocol used, together with the metric and the free feature set.
 
 ---
 
@@ -195,14 +196,15 @@ The claim is narrower:
 
 ```bibtex
 @article{kriuk2026ablationgap,
-  title  = {The Cost of a Physics Prior Is Bounded by the Ablation Gap},
-  author = {Kriuk, Boris},
-  year   = {2026}
+  title   = {The Cost of a Physics Prior Is Bounded by the Ablation Gap},
+  author  = {Kriuk, Boris},
+  journal = {Modeling and Analysis of Information Systems},
+  year    = {2026}
 }
 ```
 
 Corpus and meteorological joins: [`arXiv:2502.17023`](https://arxiv.org/abs/2502.17023).
 
 <div align="center">
-<sub>Licensed under <a href="LICENSE">Apache-2.0</a> · built with 🐍 Python 3.10+ · fully reproducible at seed 0</sub>
+<sub>Licensed under <a href="LICENSE">Apache-2.0</a> · built with 🐍 Python 3.10+ · deterministic for a fixed partition seed</sub>
 </div>

@@ -203,8 +203,6 @@ The claim is narrower:
 }
 ```
 
-Corpus and meteorological joins: [`arXiv:2502.17023`](https://arxiv.org/abs/2502.17023).
-
 <div align="center">
 <sub>Licensed under <a href="LICENSE">Apache-2.0</a> · built with 🐍 Python 3.10+ · deterministic for a fixed partition seed</sub>
 </div>
